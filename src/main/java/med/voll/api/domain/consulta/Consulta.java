@@ -27,9 +27,10 @@ public class Consulta {
     @JoinColumn(name = "paciente_id")
     private Paciente paciente;
 
+    @Column(nullable = false)
     private LocalDateTime data;
 
-    @Column(name = "consulta_status")
+    @Column(name = "consulta_status", length = 100, nullable = false)
     @Enumerated(EnumType.STRING)
     private ConsultaStatus consultaStatus;
 

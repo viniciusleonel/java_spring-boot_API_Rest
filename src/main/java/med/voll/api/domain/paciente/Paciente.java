@@ -15,14 +15,23 @@ public class Paciente {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(length = 100, nullable = false)
     private String nome;
+
+    @Column(length = 100, unique = true, nullable = false)
     private String email;
+
+    @Column(length = 20, nullable = false)
     private String telefone;
+
+    @Column(length = 11, unique = true, nullable = false)
     private String cpf;
 
     @Embedded
     private Endereco endereco;
 
+    @Column(length = 100, nullable = false)
     private Boolean ativo;
 
     public Paciente (DadosCadastroPaciente dados){

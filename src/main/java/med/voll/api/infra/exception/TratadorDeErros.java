@@ -1,6 +1,8 @@
 package med.voll.api.infra.exception;
 
 import jakarta.persistence.EntityNotFoundException;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.NonTransientDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -14,8 +16,15 @@ import java.util.Map;
 @RestControllerAdvice
 public class TratadorDeErros {
 
+    @ExceptionHandler(DataIntegrityViolationException.class)
+    public ResponseEntity<Object> tratarErro404(DataIntegrityViolationException ex){
+        return ResponseEntity
+                .status(HttpStatus.BAD_REQUEST)
+                .body(new ErrorDTO(ex.getMessage()));
+    }
+
     @ExceptionHandler(EntityNotFoundException.class)
-    public ResponseEntity tratarErro404(EntityNotFoundException ex){
+    public ResponseEntity<Object> tratarErro404(EntityNotFoundException ex){
         return ResponseEntity
                 .status(HttpStatus.NOT_FOUND)
                 .body(new ErrorDTO(ex.getMessage()));
